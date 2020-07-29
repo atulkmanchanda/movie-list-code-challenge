@@ -1,50 +1,92 @@
-# movie-list-code-challenge
-A developer code challenge for a basic RESTful web API powered by Python and bottle.
+# Movie List
+This project allows you to add, read, update, delete the movies.
 
-This code challenge highlights an understanding of the following RESTful concepts:
+## Installation
+Use the package manager pip to install the dependencies
 
- - HTTP methods
- - request & response handling
- - resources
+```bash
+pip install -r requirements.txt
+```
 
-## Background
+## Usage
 
-You've joined a local amateur movie critic club. They're looking for a way to keep track of the movies being reviewed. There's already someone that will build a web application but need someone to implement the back end. You have offered to build a RESTful web api to handle the back end logic and data storage.
+```bash
+python app.py
+```
 
-## Requirements
-Design and implement a RESTful web API using Python (2.7), and Bottle (0.12) to maintain the watch list of movies to be reviewed. 
+## Documentation
 
-The API should have methods to:  
-* Return a list of Movies
-* Add a movie
-* Update movie details
-* Delete a movie
+User needs to login to use crud operations on movies data
 
-For full credit, all the responses can be hard coded (no data back end needed).
+To login,
 
-### Movie details
+Http call: POST
 
-Each movie should contain the respective details:  
-* Title
-* Release Date
-* Production Company
+```python 
+http://127.0.0.1:5000/login
 
-### Tests
-The application should inlcude appropriate unit tests (unittest library is sufficient).
-Anything over 75% code coverage is considered acceptable.
+{
+  "username": "admin",
+  "password": "admin"
+}
 
-## Extra credit
-1. Create API documentation using RAML spec (http://raml.org/)
-2. Implement a real-time CRUD with a database back-end using either Redis or MongoDB.
-2. Implement unit tests using the nose library.
-  * Tests should not have a dependency on a database instance.
+```
 
-## Taking the challenge
+You will get the token. Use the token to access the movies API.
 
-1. Fork this repository
-2. Implement the requirements
-3. Document the installation instructions in the README.md
-4. When completed, submit a pull request to this repository.
-  * Note: PRs will never be merged, they are just used for review.
+Pass the token in request headers in all the APIs to access
 
-Tip: make sure to include a requirements.txt
+```python
+x-access-token: 'generated-token'
+```
+
+
+
+To add the movie,
+
+Http call: POST
+
+```python
+http://127.0.0.1:5000/movie
+
+{
+  "productionCompany": "Company",
+  "releaseDate": "Date,
+  "title": "Title"
+}
+
+```
+To get all the movies,
+
+Http call: GET
+
+```python
+http://127.0.0.1:5000/movie
+
+```
+
+To update the movies, 
+
+This will update the details of movie using the title key
+
+Http call: PUT
+
+```python
+http://127.0.0.1:5000/movie
+
+{
+  "productionCompany": "Company",
+  "releaseDate": "Date,
+  "title": "Title"
+}
+```
+
+To delete the movie,
+Http call: DELETE
+
+```python
+http://127.0.0.1:5000/movie
+
+{
+  "title": "Title"
+}
